@@ -86,13 +86,13 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -252,9 +252,25 @@ public class MainActivity extends AppCompatActivity
         //Button
         do_button = (Button) findViewById(R.id.do_calculate);
         do_button.setEnabled(false);
-        do_button.setOnClickListener(this);
+        do_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                double temp = calculation();
+                if (temp == - 1) {
+                    show_result.setText("Valid input required!");
+                } else {
+                    show_result.setText("$" + String.valueOf(temp));
+                }
+
+            }
+        });
         save_button = (Button) findViewById(R.id.save_result);
-        save_button.setOnClickListener(this);
+        save_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                show_result.setText("Result Saved");
+            }
+        });
     }
 
     @Override
@@ -301,33 +317,9 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    @Override
-    public void onClick(View v) {
-        String new_result = "";
-        switch (v.getId()) {
-            case R.id.do_calculate:
-                double temp = calculation();
-                if (temp == - 1) {
-                    new_result = "Valid input required!";
-                    show_result.setText(new_result);
-                } else {
-                    new_result = "$" + String.valueOf(temp);
-                    show_result.setText(new_result);
-                }
-                break;
-            case R.id.save_result:
-                new_result = "Result Saved";
-                show_result.setText(new_result);
-                break;
-            default:
-                break;
-        }
     }
 
     public void checkYears(View v) {
