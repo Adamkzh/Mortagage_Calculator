@@ -312,8 +312,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.m_calculator) {
-            // Handle the camera action
+            //at the calculator view
         } else if (id == R.id.m_map) {
+            //at the google map view
 
         }
 
