@@ -3,7 +3,6 @@ package com.example.adam.test;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,11 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.support.design.widget.Snackbar;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -33,13 +27,10 @@ import android.view.MenuItem;
 import java.util.Stack;
 import java.lang.String;
 import java.lang.Math;
-import android.support.design.widget.NavigationView;
-import android.support.v7.widget.Toolbar;
 import android.support.v7.app.ActionBar;
-import android.support.v4.view.GravityCompat;
 import android.app.Dialog;
-import android.widget.NumberPicker;
 import android.widget.Toast;
+import android.util.Log;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -71,6 +62,7 @@ public class MainActivity extends AppCompatActivity
 
     //Button
     private Button do_button;
+    private Button new_button;
     private Button save_button;
 
     //Menu
@@ -194,13 +186,27 @@ public class MainActivity extends AppCompatActivity
                     price_lock = false;
                     do_button.setEnabled(false);
                 } else {
-                    price_lock = true;
-                    if (price_lock && downpayment_lock && apr_lock) {
-                        do_button.setEnabled(true);
-                    }
+                    final String text = show_price.getText().toString();
+                    try {
+                        final int num = Integer.parseInt(text);
+                        if (num < 0) {
+                            show_price.setError("Please input a valid price!");
+                            price_lock = false;
+                            do_button.setEnabled(false);
+                        } else {
+                            price_lock = true;
+                            if (price_lock && downpayment_lock && apr_lock) {
+                                do_button.setEnabled(true);
+                            }
 
-                    if (address_lock && city_lock && zip_lock && price_lock && downpayment_lock && apr_lock) {
-                        save_button.setEnabled(true);
+                            if (address_lock && city_lock && zip_lock && price_lock && downpayment_lock && apr_lock) {
+                                save_button.setEnabled(true);
+                            }
+                        }
+                    } catch (NumberFormatException e) {
+                        show_price.setError("Please input a valid price!");
+                        price_lock = false;
+                        do_button.setEnabled(false);
                     }
                 }
             }
@@ -215,13 +221,27 @@ public class MainActivity extends AppCompatActivity
                     downpayment_lock = false;
                     do_button.setEnabled(false);
                 } else {
-                    downpayment_lock = true;
-                    if (price_lock && downpayment_lock && apr_lock) {
-                        do_button.setEnabled(true);
-                    }
+                    final String text = show_downpayment.getText().toString();
+                    try {
+                        final int num = Integer.parseInt(text);
+                        if (num < 0) {
+                            show_downpayment.setError("Please input a valid down payment!");
+                            downpayment_lock = false;
+                            do_button.setEnabled(false);
+                        } else {
+                            downpayment_lock = true;
+                            if (price_lock && downpayment_lock && apr_lock) {
+                                do_button.setEnabled(true);
+                            }
 
-                    if (address_lock && city_lock && zip_lock && price_lock && downpayment_lock && apr_lock) {
-                        save_button.setEnabled(true);
+                            if (address_lock && city_lock && zip_lock && price_lock && downpayment_lock && apr_lock) {
+                                save_button.setEnabled(true);
+                            }
+                        }
+                    } catch (NumberFormatException e) {
+                        show_downpayment.setError("Please input a valid down payment!");
+                        downpayment_lock = false;
+                        do_button.setEnabled(false);
                     }
                 }
             }
@@ -236,13 +256,27 @@ public class MainActivity extends AppCompatActivity
                     apr_lock = false;
                     do_button.setEnabled(false);
                 } else {
-                    apr_lock = true;
-                    if (price_lock && downpayment_lock && apr_lock) {
-                        do_button.setEnabled(true);
-                    }
+                    final String text = show_apr.getText().toString();
+                    try {
+                        final int num = Integer.parseInt(text);
+                        if (num < 0 || num > 100) {
+                            show_apr.setError("Please input a valid apr!");
+                            apr_lock = false;
+                            do_button.setEnabled(false);
+                        } else {
+                            apr_lock = true;
+                            if (price_lock && downpayment_lock && apr_lock) {
+                                do_button.setEnabled(true);
+                            }
 
-                    if (address_lock && city_lock && zip_lock && price_lock && downpayment_lock && apr_lock) {
-                        save_button.setEnabled(true);
+                            if (address_lock && city_lock && zip_lock && price_lock && downpayment_lock && apr_lock) {
+                                save_button.setEnabled(true);
+                            }
+                        }
+                    } catch (NumberFormatException e) {
+                        show_apr.setError("Please input a valid apr!");
+                        apr_lock = false;
+                        do_button.setEnabled(false);
                     }
                 }
             }
@@ -250,19 +284,39 @@ public class MainActivity extends AppCompatActivity
 
         //Button
         do_button = (Button) findViewById(R.id.do_calculate);
-        do_button.setEnabled(false);
         do_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 double temp = calculation();
                 if (temp == - 1) {
                     show_result.setText("Valid input required!");
+                } else if (temp == -2) {
+                    show_result.setText("Negative present value!");
                 } else {
-                    show_result.setText("$" + String.valueOf(temp));
+                        show_result.setText("$" + String.valueOf(temp));
                 }
 
             }
         });
+
+        new_button = (Button) findViewById(R.id.new_calculate);
+        new_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                house_type_spinner.setSelection(0);
+                show_address.setText("");
+                show_city.setText("");
+                state_type_spinner.setSelection(0);
+                show_zip.setText("");
+
+                show_price.setText("");
+                show_downpayment.setText("");
+                show_apr.setText("");
+
+                show_result.setText("Input Cleard!");
+            }
+        });
+
         save_button = (Button) findViewById(R.id.save_result);
         save_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -344,6 +398,9 @@ public class MainActivity extends AppCompatActivity
             return -1;
         }
         double amount = Double.parseDouble(price_temp) - Double.parseDouble(downpayment_temp);
+        if (amount < 0) {
+            return -2;
+        }
 
         //monthly rate
         String apr_temp = show_apr.getText().toString();

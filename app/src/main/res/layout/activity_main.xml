@@ -94,6 +94,7 @@
                     android:textSize="15sp"
                     android:layout_marginLeft="8dp"
                     android:layout_gravity="start"
+                    android:hint="Please input your address!"
                     android:singleLine="true"/>
 
             </TableRow>
@@ -120,6 +121,7 @@
                     android:textSize="15sp"
                     android:layout_marginLeft="8dp"
                     android:layout_gravity="start"
+                    android:hint="Please input your city!"
                     android:singleLine="true" />
 
             </TableRow>
@@ -168,6 +170,7 @@
                     android:layout_marginLeft="8dp"
                     android:textSize="15sp"
                     android:layout_gravity="start"
+                    android:hint="Please input your zipcode!"
                     android:singleLine="true" />
 
             </TableRow>
@@ -210,8 +213,8 @@
                     android:layout_marginLeft="8dp"
                     android:textSize="15sp"
                     android:layout_gravity="start"
-                    android:singleLine="true"
-                    android:text="1500000.00"/>
+                    android:hint="Please input your price!"
+                    android:singleLine="true"/>
 
                 <TextView
                     android:layout_width="0dp"
@@ -246,7 +249,7 @@
                     android:layout_marginLeft="8dp"
                     android:textSize="15sp"
                     android:layout_gravity="start"
-                    android:text="1000000.00"
+                    android:hint="Please input your downpayment!"
                     android:singleLine="true" />
 
                 <TextView
@@ -282,7 +285,7 @@
                     android:layout_marginLeft="8dp"
                     android:textSize="15sp"
                     android:layout_gravity="start"
-                    android:text="6.00"
+                    android:hint="Please input your APR!"
                     android:singleLine="true" />
 
                 <TextView
@@ -384,8 +387,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="60dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="4dp"
                     android:textSize="18sp"
                     android:text="Calculate"
                     android:enabled="false"
@@ -395,8 +396,14 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="60dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="8dp"
+                    android:textSize="18sp"
+                    android:text="New"
+                    android:id="@+id/new_calculate" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="60dp"
                     android:textSize="18sp"
                     android:text="Save"
                     android:enabled="false"
