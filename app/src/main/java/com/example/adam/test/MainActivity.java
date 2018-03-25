@@ -1,5 +1,6 @@
 package com.example.adam.test;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -73,26 +74,24 @@ public class MainActivity extends AppCompatActivity
     private Button save_button;
 
     //Menu
-    Toolbar toolbar;
+    Toolbar toolbar = null;
     private DrawerLayout mDrawerLayout;
 
+    NavigationView navigationView = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        CalculatorFragment calculatorFragment = new CalculatorFragment();
+        android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.cal_container, calculatorFragment, calculatorFragment.getTag()).commit();
+
         initView();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -100,7 +99,7 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -313,9 +312,12 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.m_calculator) {
             //at the calculator view
+            System.out.print("calculator clicked...");
         } else if (id == R.id.m_map) {
             //at the google map view
-
+            MapFragment mapFragment = new MapFragment();
+            android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.cal_container, mapFragment, mapFragment.getTag()).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
