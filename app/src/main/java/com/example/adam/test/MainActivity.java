@@ -1,8 +1,7 @@
 package com.example.adam.test;
 
-import android.app.FragmentManager;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,25 +11,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.view.Menu;
-import android.view.MenuItem;
-import java.util.Stack;
+
 import java.lang.String;
 import java.lang.Math;
-import android.support.v7.app.ActionBar;
-import android.app.Dialog;
+
 import android.widget.Toast;
-import android.util.Log;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -75,10 +66,6 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        CalculatorFragment calculatorFragment = new CalculatorFragment();
-        android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.cal_container, calculatorFragment, calculatorFragment.getTag()).commit();
 
         initView();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -326,6 +313,28 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.m_calculator) {
+            System.out.print("calculator clicked...");
+        } else if (id == R.id.m_map) {
+            MapFragment mapFragment = new MapFragment();
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.drawer_layout,mapFragment).commit();
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -358,26 +367,7 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
 
-        if (id == R.id.m_calculator) {
-            //at the calculator view
-            System.out.print("calculator clicked...");
-        } else if (id == R.id.m_map) {
-            //at the google map view
-            MapFragment mapFragment = new MapFragment();
-            android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.cal_container, mapFragment, mapFragment.getTag()).commit();
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
 
     public void checkYears(View v) {
         int radioId = year_group.getCheckedRadioButtonId();
