@@ -48,6 +48,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         LatLng SJSU = new LatLng(37.334018, -121.8815528);
         map.addMarker(new MarkerOptions().position(SJSU).title("San Jose State University"));
-        map.moveCamera(CameraUpdateFactory.newLatLng(SJSU));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(SJSU,14));
     }
 }
