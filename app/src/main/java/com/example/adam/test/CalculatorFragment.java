@@ -1,6 +1,7 @@
 package com.example.adam.test;
 
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -49,6 +50,9 @@ public class  CalculatorFragment extends Fragment {
     private Button new_button;
     private Button save_button;
 
+    //DB
+    DatabaseHelper mDatabaseHelper;
+
     public CalculatorFragment() {
         // Required empty public constructor
     }
@@ -59,6 +63,8 @@ public class  CalculatorFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View myFragmentView = inflater.inflate(R.layout.fragment_calculator, container, false);
+
+        mDatabaseHelper = new DatabaseHelper(getContext());
 
         //Spinner & RadioGroup
         house_type_spinner = (Spinner) myFragmentView.findViewById(R.id.house_type_spinner);
@@ -306,6 +312,9 @@ public class  CalculatorFragment extends Fragment {
                 show_downpayment.setText("");
                 show_apr.setText("");
 
+                do_button.setEnabled(false);
+                save_button.setEnabled(false);
+
                 show_result.setText("Input Cleard!");
             }
         });
@@ -314,7 +323,15 @@ public class  CalculatorFragment extends Fragment {
         save_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                show_result.setText("Result Saved");
+                boolean insertData = mDatabaseHelper.addData(show_address.getText().toString());
+                if (insertData) {
+                    Cursor data = mDatabaseHelper.getData();
+                    while(data.moveToNext()) {
+                        show_result.setText(data.getString(1));
+                    }
+                } else {
+                    show_result.setText("We fucked up");
+                }
             }
         });
 
