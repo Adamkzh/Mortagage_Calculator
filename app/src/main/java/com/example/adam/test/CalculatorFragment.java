@@ -329,6 +329,7 @@ public class  CalculatorFragment extends Fragment {
                     while(data.moveToNext()) {
                         show_result.setText(data.getString(1));
                     }
+//                    show_result.setText("Data Saved!");
                 } else {
                     show_result.setText("We fucked up");
                 }
