@@ -363,9 +363,9 @@ public class  CalculatorFragment extends Fragment {
                             current_state, current_zipcode, current_type, current_price,
                             current_payment, current_apr, current_terms, current_result);
                     if (insertData) {
-                        show_result.setText("Data Saved!");
+                        show_result.setText("Data saved!");
                     } else {
-                        show_result.setText("We fucked up");
+                        show_result.setText("We failed!");
                     }
                 } else {
                     show_result.setText("Please calculate first!");
