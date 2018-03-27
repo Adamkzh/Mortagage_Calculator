@@ -5,7 +5,9 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.util.Log;
@@ -21,6 +23,8 @@ public class ListDataActivity extends AppCompatActivity {
 
     DatabaseHelper mydb = new DatabaseHelper(this);
 
+    Button clearButton;
+
     private ListView mListView;
 
     @Override
@@ -30,6 +34,13 @@ public class ListDataActivity extends AppCompatActivity {
 
         mListView = (ListView) findViewById(R.id.listView);
         populateListView();
+        clearButton = (Button) findViewById(R.id.bt_clear);
+        clearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mydb.clearDatabase();
+            }
+        });
     }
 
     private void populateListView() {
@@ -38,7 +49,7 @@ public class ListDataActivity extends AppCompatActivity {
         Cursor data = mydb.getData();
 
         while(data.moveToNext()){
-            listData.add(data.getString(1));
+            listData.add(data.getString(0));
         }
 
         ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listData);

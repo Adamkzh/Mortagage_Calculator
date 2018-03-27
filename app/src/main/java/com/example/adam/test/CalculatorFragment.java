@@ -20,6 +20,18 @@ import android.widget.Spinner;
  */
 public class  CalculatorFragment extends Fragment {
 
+    //State variable
+    String current_address;
+    String current_city;
+    String current_state;
+    String current_zipcode;
+    String current_type;
+    String current_price;
+    String current_payment;
+    String current_apr;
+    String current_terms;
+    String current_result;
+
     //lock
     boolean address_lock = false;
     boolean city_lock = false;
@@ -227,7 +239,7 @@ public class  CalculatorFragment extends Fragment {
                 } else {
                     final String text = show_apr.getText().toString();
                     try {
-                        final int num = Integer.parseInt(text);
+                        final double num = Double.parseDouble(text);
                         if (num < 0 || num > 100) {
                             show_apr.setError("Please input a valid apr!");
                             apr_lock = false;
@@ -294,7 +306,19 @@ public class  CalculatorFragment extends Fragment {
                 //calculation
                 double temp = Math.pow(rate + 1, period);
                 double result = Math.round(amount * (rate * temp) / (temp - 1)*100.0)/100.0;
-                show_result.setText("$" + String.valueOf(result));
+
+                current_address = show_address.getText().toString();
+                current_city = show_city.getText().toString();
+                current_state = state_type_spinner.getSelectedItem().toString();
+                current_zipcode = show_zip.getText().toString();
+                current_type = house_type_spinner.getSelectedItem().toString();
+                current_price = show_price.getText().toString();
+                current_payment = show_downpayment.getText().toString();
+                current_apr = show_apr.getText().toString();
+                current_terms = year_radio.getText().toString();
+                current_result = String.valueOf(result);
+                show_result.setText("$" + current_result);
+
             }
         });
 
@@ -315,7 +339,18 @@ public class  CalculatorFragment extends Fragment {
                 do_button.setEnabled(false);
                 save_button.setEnabled(false);
 
-                show_result.setText("Input Cleard!");
+                current_address = "";
+                current_city = "";
+                current_state = "";
+                current_zipcode = "";
+                current_type = "";
+                current_price = "";
+                current_payment = "";
+                current_apr = "";
+                current_terms = "";
+                current_result = "";
+
+                show_result.setText("");
             }
         });
 
@@ -323,16 +358,19 @@ public class  CalculatorFragment extends Fragment {
         save_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean insertData = mDatabaseHelper.addData(show_address.getText().toString());
-                if (insertData) {
-                    Cursor data = mDatabaseHelper.getData();
-                    while(data.moveToNext()) {
-                        show_result.setText(data.getString(1));
+                if (current_result != "") {
+                    boolean insertData = mDatabaseHelper.addData(current_address, current_city,
+                            current_state, current_zipcode, current_type, current_price,
+                            current_payment, current_apr, current_terms, current_result);
+                    if (insertData) {
+                        show_result.setText("Data Saved!");
+                    } else {
+                        show_result.setText("We fucked up");
                     }
-//                    show_result.setText("Data Saved!");
                 } else {
-                    show_result.setText("We fucked up");
+                    show_result.setText("Please calculate first!");
                 }
+
             }
         });
 
