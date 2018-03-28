@@ -20,7 +20,7 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="35dp"
                     android:layout_weight="1"
                     android:textSize="25sp"
                     android:textColor="@color/colorPrimaryDark"
@@ -36,7 +36,7 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="36dp"
                     android:layout_weight="1"
                     android:textSize="15sp"
                     android:textColor="@color/colorPrimaryDark"
@@ -47,7 +47,7 @@
                 <Spinner
                     android:id="@+id/house_type_spinner"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="36dp"
                     android:layout_weight="2" />
 
             </TableRow>
@@ -58,7 +58,7 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="36dp"
                     android:layout_weight="1"
                     android:textSize="15sp"
                     android:textColor="@color/colorPrimaryDark"
@@ -69,7 +69,7 @@
                 <EditText
                     android:id="@+id/show_address"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="36dp"
                     android:layout_weight="2"
                     android:textSize="15sp"
                     android:layout_marginLeft="8dp"
@@ -85,7 +85,7 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="36dp"
                     android:layout_weight="1"
                     android:textSize="15sp"
                     android:textColor="@color/colorPrimaryDark"
@@ -96,7 +96,7 @@
                 <EditText
                     android:id="@+id/show_city"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="36dp"
                     android:layout_weight="2"
                     android:textSize="15sp"
                     android:layout_marginLeft="8dp"
@@ -112,7 +112,7 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="36dp"
                     android:layout_weight="1"
                     android:textSize="15sp"
                     android:textColor="@color/colorPrimaryDark"
@@ -123,7 +123,7 @@
                 <Spinner
                     android:id="@+id/state_type_spinner"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="36dp"
                     android:layout_weight="2" />
 
             </TableRow>
@@ -134,7 +134,7 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="36dp"
                     android:layout_weight="1"
                     android:textSize="15sp"
                     android:textColor="@color/colorPrimaryDark"
@@ -145,7 +145,7 @@
                 <EditText
                     android:id="@+id/show_zip"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="36dp"
                     android:layout_weight="2"
                     android:layout_marginLeft="8dp"
                     android:textSize="15sp"
@@ -161,7 +161,7 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="35dp"
                     android:layout_weight="1"
                     android:textSize="25sp"
                     android:textColor="@color/colorPrimaryDark"
@@ -177,7 +177,7 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="36dp"
                     android:layout_weight="4"
                     android:textSize="15sp"
                     android:textColor="@color/colorPrimaryDark"
@@ -188,7 +188,7 @@
                 <EditText
                     android:id="@+id/show_price"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="36dp"
                     android:layout_weight="7"
                     android:layout_marginLeft="8dp"
                     android:textSize="15sp"
@@ -198,7 +198,7 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="36dp"
                     android:layout_weight="1"
                     android:textSize="15sp"
                     android:gravity="center"
@@ -213,7 +213,7 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="36dp"
                     android:layout_weight="4"
                     android:textSize="15sp"
                     android:textColor="@color/colorPrimaryDark"
@@ -224,7 +224,7 @@
                 <EditText
                     android:id="@+id/show_downpayment"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="36dp"
                     android:layout_weight="7"
                     android:layout_marginLeft="8dp"
                     android:textSize="15sp"
@@ -234,7 +234,7 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="36dp"
                     android:layout_weight="1"
                     android:textSize="15sp"
                     android:gravity="center"
@@ -249,7 +249,7 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="36dp"
                     android:layout_weight="4"
                     android:textSize="15sp"
                     android:textColor="@color/colorPrimaryDark"
@@ -260,7 +260,7 @@
                 <EditText
                     android:id="@+id/show_apr"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="36dp"
                     android:layout_weight="7"
                     android:layout_marginLeft="8dp"
                     android:textSize="15sp"
@@ -270,7 +270,7 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="36dp"
                     android:layout_weight="1"
                     android:textSize="15sp"
                     android:gravity="center"
@@ -285,7 +285,7 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="36dp"
                     android:layout_weight="4"
                     android:textSize="15sp"
                     android:textColor="@color/colorPrimaryDark"
@@ -326,9 +326,9 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="80dp"
+                    android:layout_height="50dp"
                     android:layout_weight="2"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:textColor="@color/colorPrimaryDark"
                     android:gravity="center"
                     android:text="Monthly payment :"
@@ -337,7 +337,7 @@
                 <EditText
                     android:id="@+id/result_text"
                     android:layout_width="0dp"
-                    android:layout_height="80dp"
+                    android:layout_height="50dp"
                     android:layout_weight="3"
                     android:textSize="20sp"
                     android:padding="10dp"
@@ -363,8 +363,8 @@
                 <Button
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="60dp"
-                    android:textSize="18sp"
+                    android:layout_height="50dp"
+                    android:textSize="16sp"
                     android:text="Calculate"
                     android:enabled="false"
                     android:id="@+id/do_calculate" />
@@ -372,16 +372,16 @@
                 <Button
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="60dp"
-                    android:textSize="18sp"
+                    android:layout_height="50dp"
+                    android:textSize="16sp"
                     android:text="New"
                     android:id="@+id/new_calculate" />
 
                 <Button
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="60dp"
-                    android:textSize="18sp"
+                    android:layout_height="50dp"
+                    android:textSize="16sp"
                     android:text="Save"
                     android:enabled="false"
                     android:id="@+id/save_result" />

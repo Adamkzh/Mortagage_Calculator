@@ -74,12 +74,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Cursor getData() {
+    public Cursor getAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_NAME;
         Cursor data = db.rawQuery(query, null);
         return data;
     }
+
+    public Cursor getRecord(String address) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL0 + "= '" + address + "'";
+        Cursor data = db.rawQuery(query, null);
+        return data;
+    }
+//
+//    public String getEmployeeName(String empNo) {
+//        Cursor cursor = null;
+//        String empName = "";
+//        try {
+//            cursor = SQLiteDatabaseInstance_.rawQuery("SELECT EmployeeName FROM Employee WHERE EmpNo=?", new String[] {empNo + ""});
+//            if(cursor.getCount() > 0) {
+//                cursor.moveToFirst();
+//                empName = cursor.getString(cursor.getColumnIndex("EmployeeName"));
+//            }
+//            return empName;
+//        }finally {
+//            cursor.close();
+//        }
+//    }
 
 
     public void clearDatabase() {
@@ -87,5 +109,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String clearDBQuery = "DELETE FROM "+ TABLE_NAME;
         db.execSQL(clearDBQuery);
     }
+
+    public void deleteRow(String address) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM "+TABLE_NAME+" WHERE " + COL0 + "= '" + address + "'");
+    }
+
 
 }

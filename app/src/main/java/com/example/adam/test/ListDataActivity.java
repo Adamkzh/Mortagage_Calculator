@@ -12,6 +12,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.util.Log;
 import java.util.ArrayList;
+import android.widget.Toast;
 
 /**
  * Created by Forrest on 3/26/18.
@@ -24,6 +25,7 @@ public class ListDataActivity extends AppCompatActivity {
     DatabaseHelper mydb = new DatabaseHelper(this);
 
     Button clearButton;
+    Button delButton;
 
     private ListView mListView;
 
@@ -34,6 +36,7 @@ public class ListDataActivity extends AppCompatActivity {
 
         mListView = (ListView) findViewById(R.id.listView);
         populateListView();
+
         clearButton = (Button) findViewById(R.id.bt_clear);
         clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,15 +44,33 @@ public class ListDataActivity extends AppCompatActivity {
                 mydb.clearDatabase();
             }
         });
+        delButton = (Button) findViewById(R.id.bt_del);
+        delButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mydb.deleteRow("1279 38 th Ave");
+                Toast.makeText(getApplicationContext(),"Good",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void populateListView() {
         Log.d(TAG, "populateListView: Displaying data in the ListView.");
         ArrayList<String> listData = new ArrayList<>();
-        Cursor data = mydb.getData();
+//        Cursor data = mydb.getAllData();
+        Cursor data = mydb.getRecord("1279 38 th Ave");
 
         while(data.moveToNext()){
             listData.add(data.getString(0));
+            listData.add(data.getString(1));
+            listData.add(data.getString(2));
+            listData.add(data.getString(3));
+            listData.add(data.getString(4));
+            listData.add(data.getString(5));
+            listData.add(data.getString(6));
+            listData.add(data.getString(7));
+            listData.add(data.getString(8));
+            listData.add(data.getString(9));
         }
 
         ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listData);
