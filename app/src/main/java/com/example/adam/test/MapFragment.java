@@ -76,16 +76,18 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             address += data.getString(3);
 
             LatLng location = getLocationFromAddress(this.getContext(), address);
-            Marker mymarker = map.addMarker(new MarkerOptions().position(location).title(data.getString(0)));
-            hashMapMaker.put(data.getString(0),mymarker);
-            map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                @Override
-                public boolean onMarkerClick(Marker marker) {
-                    property_detail(marker.getTitle());
-                    return false;
-                }
-            });
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(location,13));
+            if (location != null) {
+                Marker mymarker = map.addMarker(new MarkerOptions().position(location).title(data.getString(0)));
+                hashMapMaker.put(data.getString(0),mymarker);
+                map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(Marker marker) {
+                        property_detail(marker.getTitle());
+                        return false;
+                    }
+                });
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(location,13));
+            }
         }
     }
 
@@ -113,7 +115,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             e.printStackTrace();
         }
         return p1;
-
     }
 
     private void property_detail(final String key){

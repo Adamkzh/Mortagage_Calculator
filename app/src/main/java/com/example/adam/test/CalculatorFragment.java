@@ -1,7 +1,10 @@
 package com.example.adam.test;
 
 
+import android.content.Context;
 import android.database.Cursor;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,6 +16,10 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+
+import com.google.android.gms.maps.model.LatLng;
+
+import java.util.List;
 
 
 /**
@@ -359,13 +366,25 @@ public class  CalculatorFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (current_result != "-1") {
-                    boolean insertData = mDatabaseHelper.addData(current_address, current_city,
-                            current_state, current_zipcode, current_type, current_price,
-                            current_payment, current_apr, current_terms, current_result);
-                    if (insertData) {
-                        show_result.setText("Data saved!");
+
+                    String address = "";
+                    address += current_address;
+                    address += current_city;
+                    address += current_state;
+                    address += current_zipcode;
+
+                    LatLng location = getLocationFromAddress(getContext(), address);
+                    if (location != null) {
+                        boolean insertData = mDatabaseHelper.addData(current_address, current_city,
+                                current_state, current_zipcode, current_type, current_price,
+                                current_payment, current_apr, current_terms, current_result);
+                        if (insertData) {
+                            show_result.setText("Data saved!");
+                        } else {
+                            show_result.setText("We failed!");
+                        }
                     } else {
-                        show_result.setText("We failed!");
+                        show_result.setText("No such location!");
                     }
                 } else {
                     show_result.setText("Calculate first!");
@@ -375,5 +394,31 @@ public class  CalculatorFragment extends Fragment {
         });
 
         return myFragmentView;
+    }
+
+    public LatLng getLocationFromAddress(Context context, String strAddress)
+    {
+        Geocoder coder= new Geocoder(context);
+        List<Address> address;
+        LatLng p1 = null;
+
+        try
+        {
+            address = coder.getFromLocationName(strAddress, 5);
+            if(address==null)
+            {
+                return null;
+            }
+            Address location = address.get(0);
+            location.getLatitude();
+            location.getLongitude();
+
+            p1 = new LatLng(location.getLatitude(), location.getLongitude());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return p1;
     }
 }
