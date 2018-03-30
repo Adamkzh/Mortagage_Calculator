@@ -1,6 +1,9 @@
 package com.example.adam.test;
 
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,6 +18,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import android.location.Geocoder;
 import android.location.Address;
@@ -24,6 +28,8 @@ import java.util.List;
 import android.content.Context;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,6 +75,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
             LatLng location = getLocationFromAddress(this.getContext(), address);
             map.addMarker(new MarkerOptions().position(location).title(data.getString(0)));
+            map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick(Marker marker) {
+                    property_detail(marker.getTitle());
+                    return false;
+                }
+            });
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(location,13));
         }
 
@@ -76,6 +89,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 //        map.addMarker(new MarkerOptions().position(address).title("1279 38th Ave"));
 //        map.moveCamera(CameraUpdateFactory.newLatLngZoom(address,13));
     }
+
 
     public LatLng getLocationFromAddress(Context context, String strAddress)
     {
@@ -103,4 +117,48 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         return p1;
 
     }
+
+    private void property_detail(final String key){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+        builder.setTitle("Property Detail");
+
+        ListView modeList = new ListView(this.getContext());
+        ArrayList<String> listData = new ArrayList<>();
+        Cursor data = mydb.getRecord(key);
+        while(data.moveToNext()){
+            listData.add("House Type: " + data.getString(4));
+            listData.add("Address: " + data.getString(0));
+            listData.add("City: " + data.getString(1));
+            listData.add("State: " + data.getString(2));
+            listData.add("Zipcode: " + data.getString(3));
+            listData.add("Price: $" + data.getString(5));
+            listData.add("Payment: $" + data.getString(6));
+            listData.add("APR: " + data.getString(7) + "%");
+            listData.add("Term: " + data.getString(8));
+            listData.add("Monthly payment: $" + data.getString(9));
+        }
+        ArrayAdapter<String> modeAdapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_list_item_1, android.R.id.text1, listData);
+        modeList.setAdapter(modeAdapter);
+
+        builder.setView(modeList);
+        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mydb.deleteRow(key);
+                Toast.makeText(getActivity(),"Good",Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+        builder.setNeutralButton("Edit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        final Dialog dialog = builder.create();
+
+        dialog.show();
+    }
+
 }
