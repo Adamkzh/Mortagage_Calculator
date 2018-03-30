@@ -127,15 +127,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         ArrayList<String> listData = new ArrayList<>();
         Cursor data = mydb.getRecord(key);
         while(data.moveToNext()){
-            listData.add("House Type: " + data.getString(4));
-            listData.add("Address: " + data.getString(0));
+            listData.add("Property Type: " + data.getString(4));
+            listData.add("Street Address: " + data.getString(0));
             listData.add("City: " + data.getString(1));
-            listData.add("State: " + data.getString(2));
-            listData.add("Zipcode: " + data.getString(3));
-            listData.add("Price: $" + data.getString(5));
-            listData.add("Payment: $" + data.getString(6));
+            double amount = Double.valueOf(data.getString(5)) - Double.valueOf(data.getString(6));
+            String result = String.format("%.2f", amount);
+            listData.add("Loan amount: $" + result);
             listData.add("APR: " + data.getString(7) + "%");
-            listData.add("Term: " + data.getString(8));
             listData.add("Monthly payment: $" + data.getString(9));
         }
         ArrayAdapter<String> modeAdapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_list_item_1, android.R.id.text1, listData);
