@@ -37,7 +37,7 @@ import android.widget.Toast;
  */
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
-    //local
+    //local variable
     DatabaseHelper mydb;
     GoogleMap map;
     HashMap<String, Marker> hashMapMaker = new HashMap<>();
@@ -87,12 +87,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             });
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(location,13));
         }
-
-//        LatLng address = getLocationFromAddress(this.getContext(), "1279 38th Ave, San Francisco, CA, 94122");
-//        map.addMarker(new MarkerOptions().position(address).title("1279 38th Ave"));
-//        map.moveCamera(CameraUpdateFactory.newLatLngZoom(address,13));
     }
-
 
     public LatLng getLocationFromAddress(Context context, String strAddress)
     {
@@ -150,13 +145,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 Marker mymarker = hashMapMaker.get(key);
                 mymarker.remove();
                 hashMapMaker.remove(key);
-                Toast.makeText(getActivity(),"Good",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"Property Removed!",Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });
         builder.setNeutralButton("Edit", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                //扩展
                 dialog.dismiss();
             }
         });

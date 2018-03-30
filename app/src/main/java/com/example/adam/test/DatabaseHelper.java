@@ -87,23 +87,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor data = db.rawQuery(query, null);
         return data;
     }
-//
-//    public String getEmployeeName(String empNo) {
-//        Cursor cursor = null;
-//        String empName = "";
-//        try {
-//            cursor = SQLiteDatabaseInstance_.rawQuery("SELECT EmployeeName FROM Employee WHERE EmpNo=?", new String[] {empNo + ""});
-//            if(cursor.getCount() > 0) {
-//                cursor.moveToFirst();
-//                empName = cursor.getString(cursor.getColumnIndex("EmployeeName"));
-//            }
-//            return empName;
-//        }finally {
-//            cursor.close();
-//        }
-//    }
 
-
+    //清掉
     public void clearDatabase() {
         SQLiteDatabase db = this.getWritableDatabase();
         String clearDBQuery = "DELETE FROM "+ TABLE_NAME;
@@ -114,6 +99,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM "+TABLE_NAME+" WHERE " + COL0 + "= '" + address + "'");
     }
-
-
 }
