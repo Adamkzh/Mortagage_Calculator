@@ -24,6 +24,7 @@ import android.location.Geocoder;
 import android.location.Address;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import android.content.Context;
 import android.widget.ArrayAdapter;
@@ -36,13 +37,14 @@ import android.widget.Toast;
  */
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
+    //local
     DatabaseHelper mydb;
-
     GoogleMap map;
+    HashMap<String, Marker> hashMapMaker = new HashMap<>();
+
     public MapFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,7 +76,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             address += data.getString(3);
 
             LatLng location = getLocationFromAddress(this.getContext(), address);
-            map.addMarker(new MarkerOptions().position(location).title(data.getString(0)));
+            Marker mymarker = map.addMarker(new MarkerOptions().position(location).title(data.getString(0)));
+            hashMapMaker.put(data.getString(0),mymarker);
             map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                 @Override
                 public boolean onMarkerClick(Marker marker) {
@@ -144,6 +147,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 mydb.deleteRow(key);
+                Marker mymarker = hashMapMaker.get(key);
+                mymarker.remove();
+                hashMapMaker.remove(key);
                 Toast.makeText(getActivity(),"Good",Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
