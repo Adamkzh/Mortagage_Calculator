@@ -38,6 +38,7 @@ public class  CalculatorFragment extends Fragment {
     String current_apr = "";
     String current_terms = "";
     String current_result = "-1";
+    String oldaddress = "";
 
     //lock
     boolean address_lock = false;
@@ -375,13 +376,25 @@ public class  CalculatorFragment extends Fragment {
 
                     LatLng location = getLocationFromAddress(getContext(), address);
                     if (location != null) {
-                        boolean insertData = mDatabaseHelper.addData(current_address, current_city,
-                                current_state, current_zipcode, current_type, current_price,
-                                current_payment, current_apr, current_terms, current_result);
-                        if (insertData) {
-                            show_result.setText("Data saved!");
+                        Cursor data = mDatabaseHelper.getRecord(current_address);
+                        if(data.moveToNext()) {
+                            boolean updateData = mDatabaseHelper.modData(oldaddress, current_address, current_city,
+                                    current_state, current_zipcode, current_type, current_price,
+                                    current_payment, current_apr, current_terms, current_result);
+                            if (updateData) {
+                                show_result.setText("Data updated!");
+                            } else {
+                                show_result.setText("We failed!");
+                            }
                         } else {
-                            show_result.setText("We failed!");
+                            boolean insertData = mDatabaseHelper.addData(current_address, current_city,
+                                    current_state, current_zipcode, current_type, current_price,
+                                    current_payment, current_apr, current_terms, current_result);
+                            if (insertData) {
+                                show_result.setText("Data saved!");
+                            } else {
+                                show_result.setText("We failed!");
+                            }
                         }
                     } else {
                         show_result.setText("No such location!");
@@ -389,7 +402,6 @@ public class  CalculatorFragment extends Fragment {
                 } else {
                     show_result.setText("Calculate first!");
                 }
-
             }
         });
 
@@ -414,6 +426,8 @@ public class  CalculatorFragment extends Fragment {
                 }
                 do_button.setEnabled(true);
                 save_button.setEnabled(true);
+                show_result.setText("Please edit!");
+                oldaddress = data.getString(0);
             }
         }
 

@@ -74,6 +74,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public boolean modData(final String key, String address, String city, String state, String zipcode, String type,
+                           String price, String payment, String apr, String terms, String monthly_payment) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL0, address);
+        contentValues.put(COL1, city);
+        contentValues.put(COL2, state);
+        contentValues.put(COL3, zipcode);
+        contentValues.put(COL4, type);
+        contentValues.put(COL5, price);
+        contentValues.put(COL6, payment);
+        contentValues.put(COL7, apr);
+        contentValues.put(COL8, terms);
+        contentValues.put(COL9, monthly_payment);
+
+        Log.d(TAG, "addDate: editing " + address + " to " + TABLE_NAME);
+
+        String[] whereArgs = new String[] {key};
+
+        long result = db.update(TABLE_NAME, contentValues,COL0 + "=?", whereArgs);
+
+        if (result == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public Cursor getAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_NAME;
@@ -98,9 +126,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void deleteRow(String address) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM "+TABLE_NAME+" WHERE " + COL0 + "= '" + address + "'");
-    }
-
-    public void updateRow(String address) {
-        SQLiteDatabase db = this.getWritableDatabase();
     }
 }

@@ -61,9 +61,6 @@ public class MainActivity extends AppCompatActivity
             MapFragment mapFragment = new MapFragment();
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.view_container,mapFragment).commit();
-        } else if (id == R.id.list) {
-            Intent intent = new Intent(this, com.example.adam.test.ListDataActivity.class);
-            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
