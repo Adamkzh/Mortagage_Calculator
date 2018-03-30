@@ -21,16 +21,16 @@ import android.widget.Spinner;
 public class  CalculatorFragment extends Fragment {
 
     //State variable
-    String current_address;
-    String current_city;
-    String current_state;
-    String current_zipcode;
-    String current_type;
-    String current_price;
-    String current_payment;
-    String current_apr;
-    String current_terms;
-    String current_result;
+    String current_address = "";
+    String current_city = "";
+    String current_state = "";
+    String current_zipcode = "";
+    String current_type = "";
+    String current_price = "";
+    String current_payment = "";
+    String current_apr = "";
+    String current_terms = "";
+    String current_result = "-1";
 
     //lock
     boolean address_lock = false;
@@ -348,7 +348,7 @@ public class  CalculatorFragment extends Fragment {
                 current_payment = "";
                 current_apr = "";
                 current_terms = "";
-                current_result = "";
+                current_result = "-1";
 
                 show_result.setText("");
             }
@@ -358,7 +358,7 @@ public class  CalculatorFragment extends Fragment {
         save_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (current_result != "") {
+                if (current_result != "-1") {
                     boolean insertData = mDatabaseHelper.addData(current_address, current_city,
                             current_state, current_zipcode, current_type, current_price,
                             current_payment, current_apr, current_terms, current_result);
@@ -368,7 +368,7 @@ public class  CalculatorFragment extends Fragment {
                         show_result.setText("We failed!");
                     }
                 } else {
-                    show_result.setText("Please calculate first!");
+                    show_result.setText("Calculate first!");
                 }
 
             }
