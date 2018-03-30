@@ -99,4 +99,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM "+TABLE_NAME+" WHERE " + COL0 + "= '" + address + "'");
     }
+
+    public void updateRow(String address) {
+        SQLiteDatabase db = this.getWritableDatabase();
+    }
 }

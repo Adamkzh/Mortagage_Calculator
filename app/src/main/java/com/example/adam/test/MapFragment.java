@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -154,6 +155,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //扩展
+                CalculatorFragment calculatorFragment = new CalculatorFragment();
+                Bundle mybundle = new Bundle();
+                mybundle.putString("data", key);
+                calculatorFragment.setArguments(mybundle);
+                FragmentManager manager = getActivity().getSupportFragmentManager();
+                manager.beginTransaction().replace(R.id.view_container,calculatorFragment).commit();
                 dialog.dismiss();
             }
         });

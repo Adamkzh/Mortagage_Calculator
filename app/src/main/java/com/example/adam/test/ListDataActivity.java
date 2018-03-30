@@ -61,4 +61,5 @@ public class ListDataActivity extends AppCompatActivity {
         mListView.setAdapter(adapter);
 
     }
+
 }

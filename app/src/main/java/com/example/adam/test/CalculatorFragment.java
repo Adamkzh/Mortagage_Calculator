@@ -393,6 +393,30 @@ public class  CalculatorFragment extends Fragment {
             }
         });
 
+        if (getArguments() != null)
+        {
+            String getArgument = getArguments().getString("data");
+            Cursor data = mDatabaseHelper.getRecord(getArgument);
+
+            while(data.moveToNext()){
+                house_type_spinner.setSelection(((ArrayAdapter)house_type_spinner.getAdapter()).getPosition(data.getString(4)));
+                show_address.setText(data.getString(0));
+                show_city.setText(data.getString(1));
+                state_type_spinner.setSelection(((ArrayAdapter)state_type_spinner.getAdapter()).getPosition(data.getString(2)));
+                show_zip.setText(data.getString(3));
+                show_price.setText(data.getString(5));
+                show_downpayment.setText(data.getString(6));
+                show_apr.setText(data.getString(7));
+                if (data.getString(8) == "15 years") {
+                    year_group.check(R.id.radio_15);
+                } else {
+                    year_group.check(R.id.radio_30);
+                }
+                do_button.setEnabled(true);
+                save_button.setEnabled(true);
+            }
+        }
+
         return myFragmentView;
     }
 
